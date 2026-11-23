@@ -1,12 +1,13 @@
 const mineflayer = require('mineflayer');
 const config = require('./config.json');
-
 const http = require('http');
+
 const PORT = process.env.PORT || 3000;
 http.createServer((req, res) => {
   res.writeHead(200);
   res.end('Bot is running');
 }).listen(PORT, '0.0.0.0', () => console.log(`Health server on port ${PORT}`));
+
 const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
 const TIME_ZONE = 'Asia/Shanghai';
@@ -323,21 +324,6 @@ function createBot() {
 }
 
 function start() {
-  const local = getLocalTimeParts();
-  const localMinute = local.hour * 60 + local.minute;
-
-  if (localMinute >= 90 && localMinute < 7 * 60 + 30) {
-    const wakeMinute = randomBetween(7 * 60 + 30, 8 * 60 + 30);
-    const wakeAt = localTimeToEpoch({
-      ...local,
-      hour: Math.floor(wakeMinute / 60),
-      minute: wakeMinute % 60
-    });
-    beginNightSleep(wakeAt);
-    return;
-  }
-
-  scheduleBedtime();
   createBot();
 }
 
