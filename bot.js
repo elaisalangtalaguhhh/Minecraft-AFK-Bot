@@ -1,6 +1,12 @@
 const mineflayer = require('mineflayer');
 const config = require('./config.json');
 
+const http = require('http');
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end('Bot is running');
+}).listen(PORT, '0.0.0.0', () => console.log(`Health server on port ${PORT}`));
 const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
 const TIME_ZONE = 'Asia/Shanghai';
