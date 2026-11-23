@@ -306,7 +306,16 @@ function createBot() {
     console.error('⚠️ Error:', err);
   });
 
-  currentBot.on('end', () => {
+  currentBot.on('kicked', (reason) => {
+    console.log('🚫 Kicked:', typeof reason === 'string' ? reason : JSON.stringify(reason));
+  });
+
+  currentBot._client.on('disconnect', (packet) => {
+    console.log('Disconnect packet:', JSON.stringify(packet));
+  });
+
+  currentBot.on('end', (reason) => {
+    console.log('End reason:', reason);
     if (ended) return;
     ended = true;
     clearSessionTimers();
